@@ -5,7 +5,7 @@
 ## 동기 처리
 ### 3.1 Race condition
 - 동시성 프로그래밍에서 예기치 못한 결함에 빠지는 상태
-- 이 race condition을 일으키는 코드 부분을 critical sectio이라고 부릅니다.
+- 이 race condition을 일으키는 코드 부분을 critical section 이라고 부릅니다.
 - ex. 여러 프로세스가 동시에 접근하는 공유 변수에 대해 값을 읽고 쓸때, 동시에 쓰고 읽을때 발생하게 됩니다.
 ### 3.2 Atomic operation
 - atomic operation은 이름과 다르게 단순하게 나눌 수 없는 처리를 뜻하는 것이 아니고,
@@ -73,7 +73,7 @@ retq
 - 이번 아토믹 처리에는 CPU에서 자체적으로 지원하는 Load-Link/Store-Conditional(LL/SC) 명령을 이용해 아토믹 처리를 구현하게 됩니다.
 - 앞서 언급된 `lock`이 이에 해당하는 명령어 입니다.
 - LL 명령은 메모리 읽기를 수행하는 명령이지만 읽을 때 메모리를 배타적으로 읽도록 지정합니다. SC 명령은 메모리 쓰기를 수행하는 명령이며, LL 명령으로 읽은 메모리에 쓰기 작업을 하는 경우에 다른 프로세스가 이미 작업을 했으면, 쓰기(SC작업)이 실패하게 됩니다. 즉 아래 그림과 같은 경우에는 실패하게 됩니다.
-- ![load-link](./images/load-link.jpeg)
+- ![load-link](../images/load-link.jpeg)
 - Load-link/Store-Conditional 명령어로 구현된 TAS
 ```assembly
     mov w8, #1            ; w8 = 1
