@@ -231,9 +231,11 @@ fn main() {
 - 이 코드에서는 코루틴이 어떻게 스케줄링하는지 간단한 구조를 파악할 수 있습니다.
 - 일단 먼저 Task struct에 ArcWake trait를 구현해서 그림에서 나온것과 달리 Task와 Waker를 합칩니다.
 - waker를 사용해서 task 자기 자신을 다시 실행큐에 집어 넣게 됩니다. 이때 Spawner를 사용하고 이를 통해 실행큐에 인큐하게 됩니다.
-- run을 통해 여러 코루틴 task들이 들어와도 관리하면서 실행할 수 있게됩니다.
+- Spawner는 밭은 future impl 를 box화하고 이를 task로 만들게 됩니다.
+- run을 통해 여러 코루틴 task들이 들어와도 루프를 돌면서 실행할 수 있게 됩니다.
+
 
 #### 세줄 요악
 - 코루틴은 함수의 재개와 실행을 할 수 있게 하는 특징이 있는 함수를 뜻합니다. 
 - 코루틴 스케줄러는 이러한 코루틴들의 실행과 중단을 관리하기 위해 내부적으로 실행큐를 가지고 있고, 이 실행큐에서 task를 꺼내서 executor를 통해 실행하게 되고 task들의 상태관리(pending, end, ready)는 waker에 의해 관리되게 됩니다.
-- Rust에서는 Future trait와 Channel을 통해 각각 Task와 실행큐를 구현할 수 있게 됩니다.
+- Rust에서는 Future trait를 이용해 Task+Waker, Channel을 통해 실행큐를 구현할 수 있게 됩니다.
