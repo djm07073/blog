@@ -58,5 +58,5 @@ select pg_relation_filepath('tab_oid');
 - Autovaccum 프로세스나 Vaccum 명령어를 실행해 테이블에 사용되지 않는 공간을 회수하고 FSM 정보를 변경합니다.
 
 ![FSM](../images/fsm_action.png)
-
+- 그림은 보면 데드 튜플이 2개가 빠지고 그 자리를 새로운 데이터가 차지한것을 확인할 수 있습니다.
 - 이제 Delete / Update를 수행하여 데드 튜플이 발생하면 Vaccum이 수행되고 나서 데드 튜플은 삭제되고 새롭게 생긴 Free Space는 FSM 트리 등록되고 새롭게 할당할때는 이 트리에서 크기를 가지고 서치하고 데이터를 저장할 페이지를 받게 됩니다.
